@@ -1,0 +1,29 @@
+
+
+.topic-items{
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    max-width: 500px;
+}
+.topic-item{
+    padding: 20p;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.topic-item:hover{
+    border: 1px solid red;
+    
+}
+
+.gif{
+    width: 100px;
+    border: 1px solid blue;
+}
+.box{
+    width: 200px;
+    border: 1px solid red;
+}
+
