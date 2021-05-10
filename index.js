@@ -5,13 +5,14 @@ var query_url = "https://api.giphy.com/v1/gifs/search?";
 var api_key = '&api_key=aFFKTuSMjd6j0wwjpFCPXZipQbcnw3vB&fmt=json';
 var topics = ["Internet Cats", "Meme's", "Typing", "Space", "Rick and Morty"];
 
+
 class Config {
     constructor(list, query_url){
         this.list = list;
         this.query_url = query_url;
-        this.addTopics();
+        this.initTopics();
     }
-    addTopics(){
+    initTopics(){
         for(let i = 0; i < this.list.length; i++){
             let li = document.createElement('li');
             li.className = 'topic-item';
@@ -19,19 +20,29 @@ class Config {
             document.querySelector('.topic-items').appendChild(li);
         }
     }
+    redrawTopics(){
+        let t_items = document.querySelectorAll('.topic-item');
+        for(let i = 0; i < this.list.length; i++){
+            t_items[i].innerHTML = this.list[i];
+        }
+    }
     append(topic){
         this.list.shift();
-        this.list.push(elem);
+        this.list.push(topic);
     }
     getURL(topic){
+        if(!this.list.includes(topic) && topic != url_trending){
+            this.append(topic);
+            this.redrawTopics();
+        }
         let url = this.query_url + 'q=' + topic + api_key;
         return url;
     }
-
 }
 
 class Catalog extends Config{
     render(data){
+        document.querySelector('.list').innerHTML = '';
         data.forEach(elem => {
             let newNode = this.generator(elem);
             this.appendNode(newNode);
@@ -40,7 +51,7 @@ class Catalog extends Config{
     generator(elem){
         let img = document.createElement('img');
         img.className = 'gif';
-        img.src = elem.url;
+        img.src = elem.images.downsized.url;
         let div = document.createElement('div');
         div.className = 'box';
         div.appendChild(img);
@@ -54,9 +65,9 @@ class Catalog extends Config{
 const catalog = new Catalog(topics,query_url);
 
 async function loadData(topic){
-    try{        
+    if(topic.length < 1) return;
+    try{     
         let url = catalog.getURL(topic);
-    
         const request = await fetch(url, {method: 'GET'});
         if(request.status === 404){
             document.querySelector('.list').innerHTML = "Couldn't fetch data";

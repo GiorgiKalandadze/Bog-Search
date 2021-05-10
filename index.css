@@ -1,29 +1,116 @@
-
-
-.topic-items{
-    border: 1px solid black;
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+/* Header */
+.header{
+    margin: auto;
+    width:500px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+}
+.title{
+    text-align: center;
+}
+.navigation{
+    width: 100%;
+}
+.topic-items{
+    display: flex;
+    justify-content: center;
     padding: 20px;
-    max-width: 500px;
+    width: 100%;
 }
 .topic-item{
-    padding: 20p;
-    border: 1px solid black;
+    list-style-type: none;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+    background-color: #dddddd;
+    border: 2px solid white;
+    transition: border 0.4s;
+    margin-right: 5px;
+}
+.active, .topic-item:hover{
+    border: 2px solid rgb(147, 206, 203);
+}
+/* Form */
+.form{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+#search{
+    padding: 6px;
+    width: 50%;
+
+}
+.button{
+    margin-left: 5px;
+    padding: 7px;
+    border-radius: 5px;
+    color: white;
+    border: 2px solid white;
+    font-size: 15px;
     cursor: pointer;
 }
-
-.topic-item:hover{
-    border: 1px solid red;
-    
+#submit{
+    background-color: rgb(45, 168, 45);
 }
+#trending{
+    background-color: rgb(211, 31, 61);
+}
+/* Main */
+.list{
 
-.gif{
-    width: 100px;
-    border: 1px solid blue;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 40px;
+    width: 100%;
 }
 .box{
-    width: 200px;
-    border: 1px solid red;
+    margin-right: 15px;
+}
+.gif{
+    max-width: 300px;
 }
 
+@media only screen and (max-width: 600px) {
+    .list{
+        padding: 20px;
+    }
+    .header{
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .title{
+        font-size: 25px;
+    }
+    .topic-items{
+        flex-direction: column;
+        align-items: center;
+    }
+    .topic-item{
+        margin-bottom: 5px;
+        margin-right: 0px;
+        width: auto;
+        min-width: 200px;
+        text-align: center;
+    }
+    .header{
+        width: 100%;   
+    }
+    .form{
+        flex-direction: column;
+    }
+    #search{
+        margin-bottom: 5px;
+    }
+    .gif{
+        max-width: 250px;
+    }
+}
