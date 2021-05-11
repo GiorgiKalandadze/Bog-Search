@@ -7,11 +7,13 @@ var topics = ["Internet Cats", "Meme's", "Typing", "Space", "Rick and Morty"];
 
 
 class Config {
-    constructor(list, query_url){
+    constructor(list, query_url, api_key){
         this.list = list;
         this.query_url = query_url;
+        this.api_key = api_key;
         this.initTopics();
     }
+    //Initialize topic navigation
     initTopics(){
         for(let i = 0; i < this.list.length; i++){
             let li = document.createElement('li');
@@ -20,27 +22,31 @@ class Config {
             document.querySelector('.topic-items').appendChild(li);
         }
     }
+    //Change navigation items
     redrawTopics(){
         let t_items = document.querySelectorAll('.topic-item');
         for(let i = 0; i < this.list.length; i++){
             t_items[i].innerHTML = this.list[i];
         }
     }
+    //Add new topic 
     append(topic){
         this.list.shift();
         this.list.push(topic);
     }
+    //Get url for current topic
     getURL(topic){
         if(!this.list.includes(topic) && topic != url_trending){
             this.append(topic);
             this.redrawTopics();
         }
-        let url = this.query_url + 'q=' + topic + api_key;
+        let url = this.query_url + 'q=' + topic + this.api_key;
         return url;
     }
 }
 
 class Catalog extends Config{
+    //Draw fetched data
     render(data){
         document.querySelector('.list').innerHTML = '';
         data.forEach(elem => {
@@ -48,6 +54,7 @@ class Catalog extends Config{
             this.appendNode(newNode);
         });
     }
+    //Generate one element(one gif)
     generator(elem){
         let img = document.createElement('img');
         img.className = 'gif';
@@ -62,8 +69,9 @@ class Catalog extends Config{
     }
 }
 
-const catalog = new Catalog(topics,query_url);
+const catalog = new Catalog(topics,query_url, api_key);
 
+//Fetch data
 async function loadData(topic){
     if(topic.length < 1) return;
     try{     

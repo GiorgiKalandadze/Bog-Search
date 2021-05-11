@@ -8,6 +8,7 @@ for(var i = 0; i < topic_elems.length; i++){
         e.target.classList.toggle('active');
     });
 }
+//Deactivate given class for elements
 function deatcivate(className, toggle){
     let nodes = document.getElementsByClassName(className);
     Array.from(nodes).forEach((elem) => {
